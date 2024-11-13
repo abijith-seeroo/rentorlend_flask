@@ -1,0 +1,3042 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Rentorlend API",
+    "description": "API documentation for Rentorlend",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/create_user": {
+      "post": {
+        "summary": "Create a new user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "mobile_no": {
+                  "type": "string"
+                },
+                "is_vendor": {
+                  "type": "boolean"
+                },
+                "is_customer": {
+                  "type": "boolean"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "user_image": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                },
+                "is_admin": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/update_user/{user_id}": {
+      "put": {
+        "summary": "Update an existing user",
+        "description": "Update details of an existing user by their user_id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the user to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the user"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email of the user"
+                },
+                "mobile_no": {
+                  "type": "string",
+                  "description": "Mobile number of the user"
+                },
+                "is_vendor": {
+                  "type": "boolean",
+                  "description": "Indicates if the user is a vendor"
+                },
+                "is_customer": {
+                  "type": "boolean",
+                  "description": "Indicates if the user is a customer"
+                },
+                "is_admin": {
+                  "type": "boolean",
+                  "description": "Indicates if the user has admin privileges"
+                },
+                "latitude": {
+                  "type": "number",
+                  "description": "Latitude of the user's location"
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Longitude of the user's location"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User updated successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No data provided"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to update user"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete_user/{user_id}": {
+      "delete": {
+        "summary": "Delete a user",
+        "description": "Delete a user by their user_id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the user to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User deleted successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to delete user"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{user_id}": {
+      "get": {
+        "summary": "Get User Details",
+        "description": "Retrieve details of a specific user by user ID.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the user to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "integer",
+                  "description": "ID of the user"
+                },
+                "public_id": {
+                  "type": "string",
+                  "description": "Public ID of the user"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the user"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email of the user"
+                },
+                "mobile_no": {
+                  "type": "string",
+                  "description": "Mobile number of the user"
+                },
+                "is_vendor": {
+                  "type": "boolean",
+                  "description": "Indicates if the user is a vendor"
+                },
+                "is_customer": {
+                  "type": "boolean",
+                  "description": "Indicates if the user is a customer"
+                },
+                "is_admin": {
+                  "type": "boolean",
+                  "description": "Indicates if the user has admin privileges"
+                },
+                "created_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the user was created"
+                },
+                "updated_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the user was last updated"
+                },
+                "user_image": {
+                  "type": "string",
+                  "description": "URL of the user's profile image"
+                },
+                "latitude": {
+                  "type": "number",
+                  "description": "Latitude of the user's location"
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Longitude of the user's location"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve user details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve user details"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Authenticate a user and retrieve a token",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "summary": "Logout a user",
+        "description": "Invalidate the user's token by adding it to a blacklist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "type": "string",
+            "required": true,
+            "description": "The JWT token to be blacklisted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully logged out",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid"
+          }
+        }
+      }
+    },
+    "/search_products": {
+      "get": {
+        "summary": "Search products",
+        "description": "Search for products based on name, price range, and availability",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Product name to search for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of products matching the search criteria",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "product_details_link": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "availability": {
+                    "type": "boolean"
+                  },
+                  "expiry_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "location_latitude": {
+                    "type": "number"
+                  },
+                  "location_longitude": {
+                    "type": "number"
+                  },
+                  "image": {
+                    "type": "string"
+                  },
+                  "vendor_name": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "integer"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "is_featured": {
+                    "type": "boolean"
+                  },
+                  "is_popular": {
+                    "type": "boolean"
+                  },
+                  "brand_id": {
+                    "type": "integer"
+                  },
+                  "camera_type_id": {
+                    "type": "integer"
+                  },
+                  "lens_type_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products_list": {
+      "get": {
+        "summary": "Get a list of products",
+        "description": "Retrieve a list of products with optional filtering by name, price range, and availability",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "product_details_link": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "availability": {
+                    "type": "boolean"
+                  },
+                  "expiry_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "location_latitude": {
+                    "type": "number"
+                  },
+                  "location_longitude": {
+                    "type": "number"
+                  },
+                  "image": {
+                    "type": "string"
+                  },
+                  "vendor_name": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "integer"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "is_featured": {
+                    "type": "boolean"
+                  },
+                  "is_popular": {
+                    "type": "boolean"
+                  },
+                  "brand_id": {
+                    "type": "integer"
+                  },
+                  "camera_type_id": {
+                    "type": "integer"
+                  },
+                  "lens_type_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/insert_products": {
+      "post": {
+        "summary": "Insert Products",
+        "description": "Insert multiple products into the database from provided JSON data.",
+        "responses": {
+          "201": {
+            "description": "Products inserted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Products inserted successfully!"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to insert products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to insert products"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Insert Products (GET method for debugging)",
+        "description": "Debugging endpoint to test inserting products with a GET request, mainly for testing purposes.",
+        "responses": {
+          "201": {
+            "description": "Products inserted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Products inserted successfully!"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to insert products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to insert products"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create_product_category": {
+      "post": {
+        "summary": "Create a new product category",
+        "description": "Endpoint to create a new product category ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the product category"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the category"
+                }
+              },
+              "required": [
+                "category_name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product category created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "category_id": {
+                  "type": "integer",
+                  "description": "ID of the created category"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/update_product_category/{category_id}": {
+      "put": {
+        "summary": "Update an existing product category",
+        "description": "Update the details of an existing product category by ID.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the product category to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product category updated successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/delete_product_category/{category_id}": {
+      "delete": {
+        "summary": "Delete a product category",
+        "description": "Delete a product category by ID.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the product category to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product category deleted successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "/create_brand_name": {
+          "post": {
+            "summary": "Add a new Brand",
+            "description": "Endpoint to a New Brand ",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "required": true,
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the Brand"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of the Brand"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Brand Added successfully",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "category_id": {
+                      "type": "integer",
+                      "description": "ID of the created Brand"
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Invalid input"
+              },
+              "500": {
+                "description": "Server error"
+              }
+            }
+          }
+        },
+        "/insert_products": {
+          "post": {
+            "summary": "Insert a new product",
+            "description": "Create a new product in the database with details such as name, price, location, and category.",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "description": "Product object that needs to be added to the database",
+                "required": true,
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "integer"
+                    },
+                    "product_details_link": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "availability": {
+                      "type": "boolean"
+                    },
+                    "expiry_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "location_latitude": {
+                      "type": "number"
+                    },
+                    "location_longitude": {
+                      "type": "number"
+                    },
+                    "image": {
+                      "type": "string",
+                      "format": "url"
+                    },
+                    "vendor_name": {
+                      "type": "string"
+                    },
+                    "category_id": {
+                      "type": "integer"
+                    },
+                    "is_featured": {
+                      "type": "boolean"
+                    },
+                    "is_popular": {
+                      "type": "boolean"
+                    },
+                    "brand_id": {
+                      "type": "integer"
+                    },
+                    "camera_type_id": {
+                      "type": "integer"
+                    },
+                    "lens_type_id": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "price",
+                    "user_id",
+                    "availability"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Product created successfully",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "product_id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Invalid input, object invalid"
+              },
+              "500": {
+                "description": "Server error"
+              }
+            }
+          }
+        },
+        "/update_product/{product_id}": {
+          "put": {
+            "summary": "Update an existing product",
+            "description": "Update the details of an existing product by product_id.",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "product_id",
+                "required": true,
+                "type": "integer",
+                "description": "ID of the product to update"
+              },
+              {
+                "in": "body",
+                "name": "body",
+                "required": true,
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the product"
+                    },
+                    "price": {
+                      "type": "number",
+                      "format": "float",
+                      "description": "Price of the product"
+                    },
+                    "availability": {
+                      "type": "boolean",
+                      "description": "Availability status of the product"
+                    },
+                    "vendor_name": {
+                      "type": "string",
+                      "description": "Name of the product's vendor"
+                    },
+                    "image": {
+                      "type": "string",
+                      "description": "URL of the product image"
+                    },
+                    "category_id": {
+                      "type": "integer",
+                      "description": "ID of the product category"
+                    },
+                    "is_featured": {
+                      "type": "boolean",
+                      "description": "Indicates whether the product is featured"
+                    },
+                    "is_popular": {
+                      "type": "boolean",
+                      "description": "Indicates whether the product is popular"
+                    }
+                  }
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Product updated successfully",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product updated successfully"
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "No data provided or invalid input",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No data provided"
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Product not found",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product not found"
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Server error",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to update product"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Error details"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/create_camera_type": {
+          "post": {
+            "summary": "Add a new camera type",
+            "description": "Endpoint to add a  New camera type ",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "required": true,
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the camera type"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of the type"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "camera type Added successfully",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "camera_type_id": {
+                      "type": "integer",
+                      "description": "ID of the created Brand"
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Invalid input"
+              },
+              "500": {
+                "description": "Server error"
+              }
+            }
+          }
+        },
+        "/create_lens_type": {
+          "post": {
+            "summary": "Add a new lens type",
+            "description": "Endpoint to add a  New Lens type ",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "required": true,
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the lens type"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of the type"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "lens type Added successfully",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "lens_type_id": {
+                      "type": "integer",
+                      "description": "ID of the created Brand"
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Invalid input"
+              },
+              "500": {
+                "description": "Server error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product_categories": {
+      "get": {
+        "summary": "Get Product Categories",
+        "description": "Retrieve a list of all product categories, including category ID, name, and description.",
+        "responses": {
+          "200": {
+            "description": "Product categories retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product category"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the product category"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve product categories",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve product categories"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/{product_id}": {
+      "get": {
+        "summary": "Get Product Details",
+        "description": "Retrieve details of a specific product by product ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the product to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product details retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "type": "integer",
+                  "description": "ID of the product"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the product"
+                },
+                "price": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Price of the product"
+                },
+                "availability": {
+                  "type": "boolean",
+                  "description": "Availability status of the product"
+                },
+                "expiry_date": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Expiry date of the product, if applicable"
+                },
+                "location_latitude": {
+                  "type": "number",
+                  "description": "Latitude of the product location"
+                },
+                "location_longitude": {
+                  "type": "number",
+                  "description": "Longitude of the product location"
+                },
+                "image": {
+                  "type": "string",
+                  "description": "URL of the product image"
+                },
+                "vendor_name": {
+                  "type": "string",
+                  "description": "Name of the product vendor"
+                },
+                "category_id": {
+                  "type": "integer",
+                  "description": "ID of the product category"
+                },
+                "brand_id": {
+                  "type": "integer",
+                  "description": "ID of the brand associated with the product"
+                },
+                "camera_type_id": {
+                  "type": "integer",
+                  "description": "ID of the camera type associated with the product"
+                },
+                "lens_type_id": {
+                  "type": "integer",
+                  "description": "ID of the lens type associated with the product"
+                },
+                "created_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the product was created"
+                },
+                "updated_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the product was last updated"
+                },
+                "is_featured": {
+                  "type": "boolean",
+                  "description": "Indicates if the product is featured"
+                },
+                "is_popular": {
+                  "type": "boolean",
+                  "description": "Indicates if the product is popular"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Product not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve product details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve product details"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/popular_products": {
+      "get": {
+        "summary": "Get Popular Products",
+        "description": "Retrieve a list of products marked as popular.",
+        "responses": {
+          "200": {
+            "description": "Popular products retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "ID of the popular product"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Price of the product"
+                  },
+                  "availability": {
+                    "type": "boolean",
+                    "description": "Availability status of the product"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "description": "Name of the product vendor"
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve popular products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve popular products"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update_product/{product_id}": {
+      "put": {
+        "summary": "Update Product",
+        "description": "Update details of an existing product by its product ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the product to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the product"
+                },
+                "price": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Price of the product"
+                },
+                "availability": {
+                  "type": "boolean",
+                  "description": "Availability status of the product"
+                },
+                "vendor_name": {
+                  "type": "string",
+                  "description": "Name of the product's vendor"
+                },
+                "image": {
+                  "type": "string",
+                  "description": "URL of the product image"
+                },
+                "category_id": {
+                  "type": "integer",
+                  "description": "ID of the product category"
+                },
+                "is_featured": {
+                  "type": "boolean",
+                  "description": "Indicates whether the product is featured"
+                },
+                "is_popular": {
+                  "type": "boolean",
+                  "description": "Indicates whether the product is popular"
+                },
+                "brand_id": {
+                  "type": "integer"
+                },
+                "camera_type_id": {
+                  "type": "integer"
+                },
+                "lens_type_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Product updated successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No data provided",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No data provided"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Product not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to update product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to update product"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete/product/{product_id}": {
+      "delete": {
+        "summary": "Delete Product",
+        "description": "Delete an existing product by its product ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the product to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Product deleted successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Product not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to delete product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to delete product"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/featured_products": {
+      "get": {
+        "summary": "Get Featured Products",
+        "description": "Retrieve a list of products marked as featured.",
+        "responses": {
+          "200": {
+            "description": "Featured products retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "ID of the featured product"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Price of the product"
+                  },
+                  "availability": {
+                    "type": "boolean",
+                    "description": "Availability status of the product"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "description": "Name of the product vendor"
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve featured products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve featured products"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/brand/{brand_id}": {
+      "get": {
+        "summary": "Get Products by Brand",
+        "description": "Retrieve a list of products for a specific brand by brand ID.",
+        "parameters": [
+          {
+            "name": "brand_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the brand to retrieve products for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "ID of the product"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Price of the product"
+                  },
+                  "availability": {
+                    "type": "boolean",
+                    "description": "Availability status of the product"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "description": "Name of the product vendor"
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products found for the specified brand",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No products found for the specified brand"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve products for the specified brand",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve products for the specified brand"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/camera_type/{camera_type_id}": {
+      "get": {
+        "summary": "Get Products by Camera Type",
+        "description": "Retrieve a list of products for a specific camera type by camera_type_id.",
+        "parameters": [
+          {
+            "name": "camera_type_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the camera type to retrieve products for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "ID of the product"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Price of the product"
+                  },
+                  "availability": {
+                    "type": "boolean",
+                    "description": "Availability status of the product"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "description": "Name of the product vendor"
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products found for the specified camera type",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No products found for the specified camera type"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve products for the specified camera type",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve products for the specified camera type"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/lens_type/{lens_type_id}": {
+      "get": {
+        "summary": "Get Products by Lens Type",
+        "description": "Retrieve a list of products for a specific lens type by lens_type_id.",
+        "parameters": [
+          {
+            "name": "lens_type_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the lens type to retrieve products for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "ID of the product"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Price of the product"
+                  },
+                  "availability": {
+                    "type": "boolean",
+                    "description": "Availability status of the product"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "description": "Name of the product vendor"
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products found for the specified lens type",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No products found for the specified lens type"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve products for the specified lens type",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve products for the specified lens type"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/filtration": {
+      "get": {
+        "summary": "Get Products by Filter",
+        "description": "Retrieve a list of products filtered by lens_type_id, camera_type_id, and/or brand_id.",
+        "parameters": [
+          {
+            "name": "lens_type_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "ID of the lens type to filter products by"
+          },
+          {
+            "name": "camera_type_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "ID of the camera type to filter products by"
+          },
+          {
+            "name": "brand_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "ID of the brand to filter products by"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "ID of the product"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the product"
+                  },
+                  "price": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Price of the product"
+                  },
+                  "availability": {
+                    "type": "boolean",
+                    "description": "Availability status of the product"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "description": "Name of the product vendor"
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "description": "ID of the product category"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the product was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products found for the specified criteria",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No products found for the specified criteria"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve products"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create_brand_name": {
+      "post": {
+        "summary": "Create a new brand",
+        "description": "Creates a new brand with a name and description",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the brand",
+                  "example": "Brand"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the brand",
+                  "example": "High-quality electronics and appliances"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Brand created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "New Brand Name Added successfully"
+                },
+                "brand_id": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to create brand"
+          }
+        }
+      }
+    },
+    "/update_brand/{brand_id}": {
+      "put": {
+        "summary": "Update a brand",
+        "description": "Updates the details of a brand by brand_id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "brand_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the brand to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the brand"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the brand"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Brand updated successfully"
+          },
+          "404": {
+            "description": "Brand not found"
+          },
+          "500": {
+            "description": "Failed to update brand"
+          }
+        }
+      }
+    },
+    "/delete_brand/{brand_id}": {
+      "delete": {
+        "summary": "Delete a brand",
+        "description": "Deletes a brand by brand_id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "brand_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the brand to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Brand deleted successfully"
+          },
+          "404": {
+            "description": "Brand not found"
+          },
+          "500": {
+            "description": "Failed to delete brand"
+          }
+        }
+      }
+    },
+    "/brands": {
+      "get": {
+        "summary": "Get Brands List",
+        "description": "Retrieve a list of all brands with details.",
+        "responses": {
+          "200": {
+            "description": "Brands list retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "brand_id": {
+                    "type": "integer",
+                    "description": "ID of the brand"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the brand"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the brand"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the brand was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the brand was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve brands",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve brands"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create_camera_type": {
+      "post": {
+        "summary": "Create a new camera type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Camera type created successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/update_camera_type/{camera_type_id}": {
+      "put": {
+        "summary": "Update an existing camera type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_type_id",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the camera type to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Camera type updated successfully"
+          },
+          "404": {
+            "description": "Camera type not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/delete_camera_type/{camera_type_id}": {
+      "delete": {
+        "summary": "Delete an existing camera type",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "camera_type_id",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the camera type to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Camera type deleted successfully"
+          },
+          "404": {
+            "description": "Camera type not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/create_lens_type": {
+      "post": {
+        "summary": "Create a new lens type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "lens type created successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/update_lens_type/{lens_type_id}": {
+      "put": {
+        "summary": "Update an existing lens type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lens_type_id",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the lens type to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "lens type updated successfully"
+          },
+          "404": {
+            "description": "lens type not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/delete_lens_type/{lens_type_id}": {
+      "delete": {
+        "summary": "Delete an existing lens type",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lens_type_id",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the lens type to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "lens type deleted successfully"
+          },
+          "404": {
+            "description": "lens type not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/home": {
+      "get": {
+        "summary": "Get Home Page Data",
+        "description": "Retrieve lists of brands, featured products, popular products, and categories for the home page.",
+        "responses": {
+          "200": {
+            "description": "Home page data retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "brands": {
+                  "type": "array",
+                  "description": "List of brands",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "brand_id": {
+                        "type": "integer",
+                        "description": "ID of the brand"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the brand"
+                      }
+                    }
+                  }
+                },
+                "featured_products": {
+                  "type": "array",
+                  "description": "List of featured products",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "product_id": {
+                        "type": "integer",
+                        "description": "ID of the product"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the product"
+                      },
+                      "price": {
+                        "type": "number",
+                        "description": "Price of the product",
+                        "format": "float"
+                      },
+                      "image": {
+                        "type": "string",
+                        "description": "URL of the product image"
+                      }
+                    }
+                  }
+                },
+                "popular_products": {
+                  "type": "array",
+                  "description": "List of popular products",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "product_id": {
+                        "type": "integer",
+                        "description": "ID of the product"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the product"
+                      },
+                      "price": {
+                        "type": "number",
+                        "description": "Price of the product",
+                        "format": "float"
+                      },
+                      "image": {
+                        "type": "string",
+                        "description": "URL of the product image"
+                      }
+                    }
+                  }
+                },
+                "categories": {
+                  "type": "array",
+                  "description": "List of product categories",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "category_id": {
+                        "type": "integer",
+                        "description": "ID of the category"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve home page data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve home page data"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enquiry": {
+      "post": {
+        "summary": "Create Enquiry",
+        "description": "Create a new enquiry with details such as name, description, status, user ID, and dates.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the enquiry",
+                  "example": "John Doe"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the enquiry",
+                  "example": "Enquiry about rental product availability"
+                },
+                "status": {
+                  "type": "boolean",
+                  "description": "Status of the enquiry",
+                  "example": false
+                },
+                "user_id": {
+                  "type": "integer",
+                  "description": "ID of the user making the enquiry"
+                },
+                "enquired_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date when the enquiry was made",
+                  "example": "2023-10-15T10:00:00"
+                },
+                "requested_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date requested for the service or item",
+                  "example": "2023-10-20T10:00:00"
+                }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Enquiry created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Enquiry created successfully"
+                },
+                "enquiry_id": {
+                  "type": "integer",
+                  "description": "ID of the created enquiry",
+                  "example": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required fields",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Name and description are required"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to create enquiry",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to create enquiry"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enquiry/{enquiry_id}": {
+      "put": {
+        "summary": "Update Enquiry",
+        "description": "Update details of an existing enquiry by its enquiry ID.",
+        "parameters": [
+          {
+            "name": "enquiry_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the enquiry to update"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the enquiry"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the enquiry"
+                },
+                "status": {
+                  "type": "boolean",
+                  "description": "Status of the enquiry"
+                },
+                "user_id": {
+                  "type": "integer",
+                  "description": "ID of the user associated with the enquiry"
+                },
+                "enquired_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date when the enquiry was made"
+                },
+                "requested_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Requested date for the service or item"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enquiry updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Enquiry updated successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No data provided",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No data provided"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enquiry not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Enquiry not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to update enquiry",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to update enquiry"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete/enquiry/{enquiry_id}": {
+      "delete": {
+        "summary": "Delete Enquiry",
+        "description": "Delete an existing enquiry by its enquiry ID.",
+        "parameters": [
+          {
+            "name": "enquiry_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the enquiry to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enquiry deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Enquiry deleted successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enquiry not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Enquiry not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to delete enquiry",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to delete enquiry"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enquiries": {
+      "get": {
+        "summary": "Get Enquiries List",
+        "description": "Retrieve a list of all enquiries with details.",
+        "responses": {
+          "200": {
+            "description": "Enquiries list retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enquiry_id": {
+                    "type": "integer",
+                    "description": "ID of the enquiry"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the person making the enquiry"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the enquiry"
+                  },
+                  "status": {
+                    "type": "boolean",
+                    "description": "Status of the enquiry"
+                  },
+                  "user_id": {
+                    "type": "integer",
+                    "description": "ID of the user who made the enquiry"
+                  },
+                  "enquired_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the enquiry was made"
+                  },
+                  "requested_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Requested date for the service or item"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the enquiry was created"
+                  },
+                  "updated_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date the enquiry was last updated"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve enquiries",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve enquiries"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/enquiry//details/{enquiry_id}": {
+      "get": {
+        "summary": "Get Enquiry Details",
+        "description": "Retrieve details of a specific enquiry by enquiry ID.",
+        "parameters": [
+          {
+            "name": "enquiry_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID of the enquiry to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enquiry details retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "enquiry_id": {
+                  "type": "integer",
+                  "description": "ID of the enquiry"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name associated with the enquiry"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the enquiry"
+                },
+                "status": {
+                  "type": "boolean",
+                  "description": "Status of the enquiry"
+                },
+                "user_id": {
+                  "type": "integer",
+                  "description": "ID of the user associated with the enquiry"
+                },
+                "enquired_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the enquiry was made"
+                },
+                "requested_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Requested date for the service or item"
+                },
+                "created_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the enquiry was created"
+                },
+                "updated_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date the enquiry was last updated"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Enquiry not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Enquiry not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrieve enquiry details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to retrieve enquiry details"
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Error details"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

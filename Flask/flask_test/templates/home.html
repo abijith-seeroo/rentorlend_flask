@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Flask!</h1>
+<img src="{{ url_for('static', filename='images/flask.jpg') }}" alt="Flask Logo" class="img-fluid" style="max-width: 300px;">
+{% endblock %}
